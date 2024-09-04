@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Libertadores</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa; /* Cor de fundo mais vibrante */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out; /* Animação de entrada */
+        }
+        h1 {
+            text-align: center;
+            color: #00796b; /* Cor vibrante para o título */
+        }
+        .choices {
+            margin-top: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #00796b; /* Cor vibrante para os botões */
+            color: #ffffff;
+            transition: background-color 0.3s, transform 0.3s; /* Transição suave */
+        }
+        button:hover {
+            background-color: #004d40; /* Cor de fundo ao passar o mouse */
+            transform: scale(1.05); /* Leve aumento ao passar o mouse */
+        }
+        button:active {
+            transform: scale(0.95); /* Leve diminuição ao clicar */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>A Jornada para a Final da Libertadores</h1>
+        <p id="story">Você é um jovem jogador de futebol com um sonho: ganhar a Libertadores. Seu time está na fase de grupos e você precisa marcar gols para avançar. Qual será a sua estratégia?</p>
+        <div class="choices">
+            <button onclick="makeChoice('aggressive')">Jogar de forma agressiva</button>
+            <button onclick="makeChoice('cautious')">Jogar de forma cautelosa</button>
+        </div>
+    </div>
+
+    <script>
+        function makeChoice(choice) {
+            const storyElement = document.getElementById('story');
+            const choicesElement = document.querySelector('.choices');
+            
+            // Adiciona animação de desvanecimento ao atualizar a história
+            storyElement.style.opacity = 0;
+            setTimeout(() => {
+                if (choice === 'aggressive') {
+                    storyElement.innerHTML = 'Você decide jogar de forma agressiva e ir para cima dos adversários. Seus dribles e chutes rápidos acabam resultando em dois gols, mas você também recebe um cartão amarelo por falta dura. O time adversário marca um gol de empate no segundo tempo. Agora, você precisa vencer o próximo jogo para garantir a classificação.';
+                    choicesElement.innerHTML = '<button onclick="makeChoice(\'win\')">Ganhar o próximo jogo</button><button onclick="makeChoice(\'lose\')">Perder o próximo jogo</button>';
+                } else if (choice === 'cautious') {
+                    storyElement.innerHTML = 'Você decide jogar de forma cautelosa, mantendo a posse de bola e buscando espaços para atacar com calma. Seu time controla o jogo e consegue marcar um gol, mas você não consegue ampliar o placar. Com a vitória, seu time se classifica para a próxima fase da Libertadores.';
+                    choicesElement.innerHTML = '<button onclick="makeChoice(\'nextPhase\')">Avançar para a próxima fase</button>';
+                } else if (choice === 'win') {
+                    storyElement.innerHTML = 'Com a vitória no próximo jogo, seu time avança para as quartas de final da Libertadores. Agora, você enfrenta um adversário forte e precisa se preparar bem para a próxima partida.';
+                    choicesElement.innerHTML = '<button onclick="makeChoice(\'finals\')">Preparar-se para a final</button>';
+                } else if (choice === 'lose') {
+                    storyElement.innerHTML = 'Infelizmente, seu time perde o próximo jogo e é eliminado da competição. Apesar do esforço, a jornada na Libertadores termina por aqui.';
+                    choicesElement.innerHTML = '<button onclick="restartGame()">Recomeçar a jornada</button>';
+                } else if (choice === 'nextPhase') {
+                    storyElement.innerHTML = 'Seu time avança para a próxima fase da Libertadores. As partidas se tornam mais difíceis, e você precisa se concentrar para chegar à final.';
+                    choicesElement.innerHTML = '<button onclick="makeChoice(\'finals\')">Preparar-se para a final</button>';
+                } else if (choice === 'finals') {
+                    storyElement.innerHTML = 'Você chega à final da Libertadores com o time preparado e determinado. Após uma partida emocionante, seu time conquista a vitória e o título da Libertadores!';
+                    choicesElement.innerHTML = '<button onclick="restartGame()">Jogar novamente</button>';
+                }
+                storyElement.style.opacity = 1;
+            }, 300);
+        }
+
+        function restartGame() {
+            document.getElementById('story').innerHTML = 'Você é um jovem jogador de futebol com um sonho: ganhar a Libertadores. Seu time está na fase de grupos e você precisa marcar gols para avançar. Qual será a sua estratégia?';
+            document.querySelector('.choices').innerHTML = '<button onclick="makeChoice(\'aggressive\')">Jogar de forma agressiva</button><button onclick="makeChoice(\'cautious\')">Jogar de forma cautelosa</button>';
+        }
+    </script>
+</body>
+</html>
